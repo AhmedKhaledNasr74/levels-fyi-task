@@ -1,4 +1,4 @@
-import { RefreshCcw } from "lucide-react";
+import { RefreshCcw, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import FilterDropdown from "./FilterDropdown";
 import TableRow from "./TableRow";
@@ -87,7 +87,20 @@ const Table = ({ data }: TableProps) => {
     return (
         <div className="p-4 bg-white mt-5  rounded-2xl border border-gray-300 flex flex-col gap-4">
             <div className="flex justify-between items-center px-1">
-                <h2 className="font-medium">Products</h2>
+                <div className="flex items-center gap-4">
+                    <h2 className="font-medium">Products</h2>
+                    {filter && (
+                        <div className="text-sm bg-green-100/80 border border-green-300/80 px-2 py-1 rounded-full flex items-center  gap-2">
+                            <span className="text-sm ">{filter}</span>
+                            <X
+                                size={14}
+                                className="cursor-pointer"
+                                onClick={() => setFilter("")}
+                            />
+                        </div>
+                    )}
+                </div>
+
                 <div className="">
                     <div className="flex items-center gap-1">
                         <TableSearch setSearchTerm={setSearchTerm} />
