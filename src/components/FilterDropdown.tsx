@@ -1,5 +1,5 @@
 import { DotIcon, Filter } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Product } from "../interfaces/Product";
 
 type FilterDropdownProps = {
@@ -12,8 +12,26 @@ const FilterDropdown = ({ data, filter, setFilter }: FilterDropdownProps) => {
     const [openFilter, setOpenFilter] = useState(false);
     const categories = [...new Set(data.map((item: Product) => item.category))];
 
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target as Node)
+            ) {
+                setOpenFilter(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
     return (
-        <div>
+        <div ref={dropdownRef}>
             <button
                 className="rounded-md border flex items-center gap-3 py-2 px-4  hover:bg-gray-100 cursor-pointer text-center text-sm border-gray-200 transition-all shadow-xs hover:shadow-lg focus:shadow-noneactive:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
                 type="button"
