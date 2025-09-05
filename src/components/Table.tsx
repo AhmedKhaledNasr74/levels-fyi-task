@@ -1,11 +1,12 @@
-import { ArrowDown, ArrowUp, ArrowUpDown, RefreshCcw } from "lucide-react";
-import { useMemo, useState } from "react";
+import { RefreshCcw } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 import FilterDropdown from "./FilterDropdown";
 import TableRow from "./TableRow";
 import type { Product } from "../interfaces/Product";
 import TableSearch from "./TableSearch";
 import Pagination from "./Pagination";
 import type PaginationType from "../interfaces/Pagination";
+import TableHeader from "./TableHeader";
 
 const COLUMNS = [
     { label: "Title", field: "title" },
@@ -31,6 +32,11 @@ const Table = ({ data }: TableProps) => {
         page: 1,
         take: 6,
     });
+
+    useEffect(() => {
+        // Reset to first page on filter or search change
+        setPagination({ page: 1, take: 6 });
+    }, [filter, searchTerm]);
 
     const sortData = (data: Product[]) => {
         if (!sortObj.direction) return data;
@@ -68,6 +74,8 @@ const Table = ({ data }: TableProps) => {
     const clearSelections = () => {
         setFilter("");
         setSortObj({ field: "title", direction: "" });
+        setPagination({ page: 1, take: 6 });
+        setSearchTerm("");
     };
 
     return (
@@ -96,41 +104,12 @@ const Table = ({ data }: TableProps) => {
             </div>
             <div className="overflow-x-auto p-1">
                 <table className="w-full min-w-[600px] table-fixed divide-y divide-gray-200 outline outline-gray-300 !rounded-lg ">
-                    <thead className="bg-gray-100  ">
-                        <tr>
-                            {COLUMNS.map((col) => (
-                                <th
-                                    key={col.field}
-                                    scope="col"
-                                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-200 !w-1/5 "
-                                    onClick={() =>
-                                        setSortObj((prev) => ({
-                                            field: col.field,
-                                            direction:
-                                                prev.direction == "asc"
-                                                    ? "desc"
-                                                    : "asc",
-                                        }))
-                                    }
-                                >
-                                    <div className="flex items-center gap-2">
-                                        <h3>{col.label}</h3>
-                                        {sortObj.field === col.field ? (
-                                            sortObj.direction == "" ? (
-                                                <ArrowUpDown size={14} />
-                                            ) : sortObj.direction == "asc" ? (
-                                                <ArrowUp size={14} />
-                                            ) : (
-                                                <ArrowDown size={14} />
-                                            )
-                                        ) : (
-                                            <ArrowUpDown size={14} />
-                                        )}
-                                    </div>
-                                </th>
-                            ))}
-                        </tr>
-                    </thead>
+                    <TableHeader
+                        columns={COLUMNS}
+                        sortObj={sortObj}
+                        setSortObj={setSortObj}
+                    />
+
                     <tbody className="bg-white divide-y divide-gray-200 ">
                         {paginatedData.map((item) => (
                             <TableRow key={item.id} item={item} />
@@ -141,8 +120,9 @@ const Table = ({ data }: TableProps) => {
             <Pagination
                 setPagination={setPagination}
                 pagination={pagination}
-                finalPage={Math.ceil(
-                    filteredAndSorted.length / pagination.take
+                finalPage={Math.max(
+                    1,
+                    Math.ceil(filteredAndSorted.length / pagination.take)
                 )}
             />
         </div>
