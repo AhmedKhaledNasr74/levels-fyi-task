@@ -71,8 +71,8 @@ const Table = ({ data }: TableProps) => {
     };
 
     return (
-        <div className="p-4 bg-white mt-8 rounded-2xl border border-gray-300 flex flex-col gap-4">
-            <div className="flex justify-between items-center pr-1">
+        <div className="p-4 bg-white mt-5  rounded-2xl border border-gray-300 flex flex-col gap-4">
+            <div className="flex justify-between items-center px-1">
                 <h2 className="font-medium">Products</h2>
                 <div className="">
                     <div className="flex items-center gap-1">
@@ -94,48 +94,50 @@ const Table = ({ data }: TableProps) => {
                     </div>
                 </div>
             </div>
-            <table className="w-full table-fixed divide-y divide-gray-200 outline outline-gray-300 !rounded-lg overflow-hidden">
-                <thead className="bg-gray-100  ">
-                    <tr>
-                        {COLUMNS.map((col) => (
-                            <th
-                                key={col.field}
-                                scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-200 !w-1/5 "
-                                onClick={() =>
-                                    setSortObj((prev) => ({
-                                        field: col.field,
-                                        direction:
-                                            prev.direction == "asc"
-                                                ? "desc"
-                                                : "asc",
-                                    }))
-                                }
-                            >
-                                <div className="flex items-center gap-2">
-                                    <h3>{col.label}</h3>
-                                    {sortObj.field === col.field ? (
-                                        sortObj.direction == "" ? (
-                                            <ArrowUpDown size={14} />
-                                        ) : sortObj.direction == "asc" ? (
-                                            <ArrowUp size={14} />
+            <div className="overflow-x-auto p-1">
+                <table className="w-full min-w-[600px] table-fixed divide-y divide-gray-200 outline outline-gray-300 !rounded-lg ">
+                    <thead className="bg-gray-100  ">
+                        <tr>
+                            {COLUMNS.map((col) => (
+                                <th
+                                    key={col.field}
+                                    scope="col"
+                                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-200 !w-1/5 "
+                                    onClick={() =>
+                                        setSortObj((prev) => ({
+                                            field: col.field,
+                                            direction:
+                                                prev.direction == "asc"
+                                                    ? "desc"
+                                                    : "asc",
+                                        }))
+                                    }
+                                >
+                                    <div className="flex items-center gap-2">
+                                        <h3>{col.label}</h3>
+                                        {sortObj.field === col.field ? (
+                                            sortObj.direction == "" ? (
+                                                <ArrowUpDown size={14} />
+                                            ) : sortObj.direction == "asc" ? (
+                                                <ArrowUp size={14} />
+                                            ) : (
+                                                <ArrowDown size={14} />
+                                            )
                                         ) : (
-                                            <ArrowDown size={14} />
-                                        )
-                                    ) : (
-                                        <ArrowUpDown size={14} />
-                                    )}
-                                </div>
-                            </th>
+                                            <ArrowUpDown size={14} />
+                                        )}
+                                    </div>
+                                </th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200 ">
+                        {sortedData.map((item) => (
+                            <TableRow key={item.id} item={item} />
                         ))}
-                    </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200 ">
-                    {sortedData.map((item) => (
-                        <TableRow key={item.id} item={item} />
-                    ))}
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
             <Pagination
                 setPagination={setPagination}
                 pagination={pagination}
