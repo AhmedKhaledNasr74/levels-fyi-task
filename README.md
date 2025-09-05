@@ -7,6 +7,7 @@ This project was built as an **assignment/demo**, but the design is flexible eno
 
 ---
 
+
 ## 🚀 Features
 
 - **Sorting**  
@@ -29,6 +30,7 @@ This project was built as an **assignment/demo**, but the design is flexible eno
 
 ---
 
+
 ## ⚠️ Note on Pagination:
 This project implements frontend pagination (all data is fetched and then sliced in the browser).
 If this were a production application, pagination should be handled in the backend, because:
@@ -43,6 +45,7 @@ The client only receives the relevant page of data, improving performance on slo
 
 ### i just made it in the frontend beacuse i was asked to implement the table logic myself.
 ---
+
 
 ## ⚙️ Installation
 
@@ -63,11 +66,17 @@ npm run dev
 ## usage:
 
 Sorting: Click on a column header to toggle ascending/descending order.
+
 Filtering: Use the filter dropdown to select a category.
+
 Search: Type in the search bar to filter by product title or category.
+
 Pagination: Navigate between pages using the pagination controls.
+
 Reset: Removes everything — clears search, filter, and sorting, and resets pagination.
+
 Clear Filter: Removes only the selected category filter, keeping search, sorting, and pagination intact.
+
 
 ## Tech Stack & Libraries
 
