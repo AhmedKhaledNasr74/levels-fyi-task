@@ -29,7 +29,7 @@ const Table = ({ data }: TableProps) => {
 
     const [pagination, setPagination] = useState<PaginationType>({
         page: 1,
-        take: 5,
+        take: 6,
     });
 
     const sortData = (data: Product[]) => {
@@ -71,7 +71,7 @@ const Table = ({ data }: TableProps) => {
     };
 
     return (
-        <div className="p-5 bg-white my-8 rounded-2xl border border-gray-300 flex flex-col gap-4">
+        <div className="p-4 bg-white mt-8 rounded-2xl border border-gray-300 flex flex-col gap-4">
             <div className="flex justify-between items-center pr-1">
                 <h2 className="font-medium">Products</h2>
                 <div className="">

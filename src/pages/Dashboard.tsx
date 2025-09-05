@@ -7,7 +7,7 @@ const Dashboard = () => {
     if (loading) return <div>Loading...</div>;
 
     return (
-        <div className="p-5 min-h-screen">
+        <div className="p-5 pb-0 min-h-screen">
             <StatisticsCard length={products.length} data={products} />
             <Table data={products} />
         </div>
