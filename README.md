@@ -41,40 +41,7 @@ It scales better for thousands or millions of records.
 
 The client only receives the relevant page of data, improving performance on slower devices and connections.
 
-# i just made it in the frontend beacuse i was asked to implement the table logic myself.
----
-
-## 📂 Project Structure
-project-root/
-├── public/
-│   └── vite.svg
-├── src/
-│   ├── assets/
-│   ├── components/
-│   │   └── ui/
-│   │       ├── Badge.tsx
-│   │       ├── FilterDropdown.tsx
-│   │       ├── Loading.tsx
-│   │       ├── Pagination.tsx
-│   │       ├── StatisticsCard.tsx
-│   │       ├── Table.tsx
-│   │       ├── TableHeader.tsx
-│   │       ├── TableRow.tsx
-│   │       └── TableSearch.tsx
-│   ├── context/
-│   │   └── ProductsContext.tsx
-│   ├── interfaces/
-│   │   ├── Pagination.ts
-│   │   └── Product.ts
-│   ├── pages/
-│   │   └── Dashboard.tsx
-│   ├── utils/
-│   │   └── getStockColor.ts
-│   ├── App.css
-│   ├── App.tsx
-│   ├── index.css
-│   └── main.tsx
-
+### i just made it in the frontend beacuse i was asked to implement the table logic myself.
 ---
 
 ## ⚙️ Installation
