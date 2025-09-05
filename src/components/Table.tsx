@@ -48,22 +48,22 @@ const Table = ({ data }: TableProps) => {
         });
     };
 
-    const sortedData = useMemo(() => {
+    const filteredAndSorted = useMemo(() => {
         return sortData(
-            data
-                .slice(
-                    (pagination.page - 1) * pagination.take,
-                    pagination.take * pagination.page
-                )
-                .filter(
-                    (item: Product) =>
-                        item.category.includes(filter) &&
-                        item.title
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase())
-                )
+            data.filter(
+                (item: Product) =>
+                    item.category.includes(filter) &&
+                    item.title.toLowerCase().includes(searchTerm.toLowerCase())
+            )
         );
-    }, [data, sortObj, filter, searchTerm, pagination]);
+    }, [data, sortObj, filter, searchTerm]);
+
+    const paginatedData = useMemo(() => {
+        return filteredAndSorted.slice(
+            (pagination.page - 1) * pagination.take,
+            pagination.take * pagination.page
+        );
+    }, [filteredAndSorted, pagination]);
 
     const clearSelections = () => {
         setFilter("");
@@ -132,7 +132,7 @@ const Table = ({ data }: TableProps) => {
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200 ">
-                        {sortedData.map((item) => (
+                        {paginatedData.map((item) => (
                             <TableRow key={item.id} item={item} />
                         ))}
                     </tbody>
@@ -141,7 +141,9 @@ const Table = ({ data }: TableProps) => {
             <Pagination
                 setPagination={setPagination}
                 pagination={pagination}
-                finalPage={Math.ceil(data.length / pagination.take)}
+                finalPage={Math.ceil(
+                    filteredAndSorted.length / pagination.take
+                )}
             />
         </div>
     );
