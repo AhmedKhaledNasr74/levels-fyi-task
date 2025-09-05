@@ -16,6 +16,8 @@ const COLUMNS = [
     { label: "Category", field: "category" },
 ];
 
+const searchableFields: (keyof Product)[] = ["title", "category"];
+
 type TableProps = {
     data: Product[];
 };
@@ -56,11 +58,15 @@ const Table = ({ data }: TableProps) => {
 
     const filteredAndSorted = useMemo(() => {
         return sortData(
-            data.filter(
-                (item: Product) =>
+            data.filter((item: Product) => {
+                const search = searchTerm.toLowerCase();
+                return (
                     item.category.includes(filter) &&
-                    item.title.toLowerCase().includes(searchTerm.toLowerCase())
-            )
+                    searchableFields.some((field) =>
+                        String(item[field]).toLowerCase().includes(search)
+                    )
+                );
+            })
         );
     }, [data, sortObj, filter, searchTerm]);
 
