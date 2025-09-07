@@ -1,12 +1,12 @@
 import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
+import useCtrlClick from "../hooks/useCtrlClick";
+import { useProducts } from "../context/ProductsContext";
 type TableHeaderProps = {
     columns: { label: string; field: string }[];
-    sortObj: { field: string; direction: string };
-    setSortObj: React.Dispatch<
-        React.SetStateAction<{ field: string; direction: string }>
-    >;
 };
-const TableHeader = ({ columns, sortObj, setSortObj }: TableHeaderProps) => {
+const TableHeader = ({ columns }: TableHeaderProps) => {
+    const { handleClick } = useCtrlClick();
+    const { sortObj, setSortObj } = useProducts();
     return (
         <thead className="bg-gray-100  ">
             <tr>
@@ -15,13 +15,14 @@ const TableHeader = ({ columns, sortObj, setSortObj }: TableHeaderProps) => {
                         key={col.field}
                         scope="col"
                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-200 !w-1/5 "
-                        onClick={() =>
+                        onClick={() => {
                             setSortObj((prev) => ({
                                 field: col.field,
                                 direction:
                                     prev.direction == "asc" ? "desc" : "asc",
-                            }))
-                        }
+                            }));
+                            handleClick();
+                        }}
                     >
                         <div className="flex items-center gap-2">
                             <h3>{col.label}</h3>

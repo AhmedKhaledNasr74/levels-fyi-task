@@ -1,15 +1,26 @@
-import {
-    createContext,
-    useContext,
-    useEffect,
-    useState,
-    type ReactNode,
-} from "react";
+import { createContext, useContext, type ReactNode } from "react";
 import type { Product } from "../interfaces/Product";
+import { useEffect, useState } from "react";
+import type PaginationType from "../interfaces/Pagination";
+import useProductsData from "../hooks/useProductsData";
+import { fetchProducts } from "../api/products";
 
 type ProductsContextType = {
     products: Product[];
     loading: boolean;
+    clearSelections: () => void;
+    filter: string;
+    setFilter: React.Dispatch<React.SetStateAction<string>>;
+    searchTerm: string;
+    setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+    paginatedData: Product[];
+    sortObj: { field: string; direction: string };
+    setSortObj: React.Dispatch<
+        React.SetStateAction<{ field: string; direction: string }>
+    >;
+    pagination: PaginationType;
+    setPagination: React.Dispatch<React.SetStateAction<PaginationType>>;
+    filteredAndSorted: Product[];
 };
 
 const ProductsContext = createContext<ProductsContextType | undefined>(
@@ -25,16 +36,21 @@ export const ProductsProvider = ({ children }: ProductsProviderProps) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("https://dummyjson.com/products")
-            .then((res) => res.json())
-            .then((data) => {
-                setProducts(data.products);
-                setLoading(false);
-            });
+        fetchProducts()
+            .then(setProducts)
+            .finally(() => setLoading(false));
     }, []);
 
+    const productsState = useProductsData(products);
+
     return (
-        <ProductsContext.Provider value={{ products, loading }}>
+        <ProductsContext.Provider
+            value={{
+                products,
+                loading,
+                ...productsState,
+            }}
+        >
             {children}
         </ProductsContext.Provider>
     );

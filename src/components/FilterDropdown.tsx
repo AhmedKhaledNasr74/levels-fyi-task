@@ -1,14 +1,14 @@
 import { DotIcon, Filter } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import type { Product } from "../interfaces/Product";
+import { useProducts } from "../context/ProductsContext";
 
 type FilterDropdownProps = {
     data: Product[];
-    filter: string;
-    setFilter: (filter: string) => void;
 };
 
-const FilterDropdown = ({ data, filter, setFilter }: FilterDropdownProps) => {
+const FilterDropdown = ({ data }: FilterDropdownProps) => {
+    const { filter, setFilter } = useProducts();
     const [openFilter, setOpenFilter] = useState(false);
     const categories = [...new Set(data.map((item: Product) => item.category))];
 
@@ -49,6 +49,7 @@ const FilterDropdown = ({ data, filter, setFilter }: FilterDropdownProps) => {
                                 setFilter(item);
                                 setOpenFilter(false);
                             }}
+                            key={item}
                         >
                             {item == filter && <DotIcon />}
                             {item}

@@ -1,17 +1,12 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import type PaginationType from "../interfaces/Pagination";
+import { useProducts } from "../context/ProductsContext";
 
-type PaginationProps = {
-    setPagination: (pagination: PaginationType) => void;
-    pagination: PaginationType;
-    finalPage: number;
-};
-
-const Pagination = ({
-    setPagination,
-    pagination,
-    finalPage,
-}: PaginationProps) => {
+const Pagination = () => {
+    const { pagination, setPagination, filteredAndSorted } = useProducts();
+    const finalPage = Math.max(
+        1,
+        Math.ceil(filteredAndSorted.length / pagination.take)
+    );
     const baseBtn =
         "rounded-md border border-slate-300 p-2.5 text-center text-sm transition-all shadow-sm text-black transition-all " +
         "hover:bg-radial hover:from-green-700 hover:via-green-800 hover:to-green-900 " +

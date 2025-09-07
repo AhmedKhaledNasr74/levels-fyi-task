@@ -1,16 +1,14 @@
 import { ChartBarStacked, ChartLine, DollarSign, Wallet } from "lucide-react";
 import type { Product } from "../interfaces/Product";
+import { useProducts } from "../context/ProductsContext";
 
-type StatisticsCardProps = {
-    length: number;
-    data: Product[];
-};
+const StatisticsCard = () => {
+    const { products } = useProducts();
 
-const StatisticsCard = ({ length, data }: StatisticsCardProps) => {
     const secondaryData = [
         {
             title: "Categories",
-            value: [...new Set(data.map((item: Product) => item.category))]
+            value: [...new Set(products.map((item: Product) => item.category))]
                 .length,
             description: "In total",
             icon: <ChartBarStacked size={20} />,
@@ -18,14 +16,15 @@ const StatisticsCard = ({ length, data }: StatisticsCardProps) => {
         {
             title: "Average Price",
             value: `$${(
-                data.reduce((acc, item) => acc + item.price, 0) / data.length
+                products.reduce((acc, item) => acc + item.price, 0) /
+                products.length
             ).toFixed(2)}`,
             description: "Per product",
             icon: <DollarSign size={20} />,
         },
         {
             title: "Total Value",
-            value: `$${data
+            value: `$${products
                 .reduce((acc, item) => acc + item.price, 0)
                 .toFixed(2)}`,
             description: "All products",
@@ -43,7 +42,7 @@ const StatisticsCard = ({ length, data }: StatisticsCardProps) => {
                     </div>
                     <h2 className="text-sm">Products number</h2>
                 </div>
-                <h1 className="text-3xl font-bold mt-4">{length}</h1>
+                <h1 className="text-3xl font-bold mt-4">{products?.length}</h1>
                 <p className="text-sm mt-2 text-white/90">In total</p>
             </div>
 
