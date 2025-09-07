@@ -11,8 +11,13 @@ This project was built as an **assignment/demo**, but the design is flexible eno
 
 -   **Sorting**
 
-    -   Click column headers to sort data (`asc | desc `).
+    -   Click column headers to sort data (`asc | desc`).
     -   Works with both strings and numbers.
+    -   **Multi-column sorting**: Hold <kbd>Ctrl</kbd> (or <kbd>Cmd</kbd> on Mac) and click additional columns to sort by multiple fields at once.
+        -   First click: ascending
+        -   Second click: descending
+        -   Third click: remove column from sorting
+        -   A small number indicator shows the priority of each column in the sort order.
 
 -   **Filtering**
 
@@ -68,19 +73,34 @@ npm install
 
 ---
 
-## usage:
+## 📌 Usage
 
-Sorting: Click on a column header to toggle ascending/descending order.
+-   **Sorting**  
+    Click a column header to toggle sorting between ascending and descending.
 
-Filtering: Use the filter dropdown to select a category.
+-   **Multi-column Sorting**  
+    Hold <kbd>Ctrl</kbd> (or <kbd>Cmd</kbd> on Mac) while clicking multiple column headers to sort by several fields.
 
-Search: Type in the search bar to filter by product title or category.
+    -   1st click → Ascending
+    -   2nd click → Descending
+    -   3rd click → Removes the column from sorting
+    -   Number badges show the priority of each sorted column.
 
-Pagination: Navigate between pages using the pagination controls.
+-   **Filtering**  
+    Use the dropdown menu to filter products by category.
 
-Reset: Removes everything — clears search, filter, and sorting, and resets pagination.
+-   **Searching**  
+    Type in the search bar to filter products by title or category (case-insensitive).
 
-Clear Filter: Removes only the selected category filter, keeping search, sorting, and pagination intact.
+-   **Pagination**  
+    Navigate between pages using the pagination controls.  
+    Pagination resets to the first page whenever filter or search changes.
+
+-   **Reset**  
+    Clears search, filter, sorting, and pagination — restoring the table to its initial state.
+
+-   **Clear Filter**  
+    Removes only the category filter while keeping search, sorting, and pagination intact.
 
 ## Tech Stack & Libraries
 
