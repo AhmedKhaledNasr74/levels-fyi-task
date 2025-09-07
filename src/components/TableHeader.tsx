@@ -14,7 +14,7 @@ const TableHeader = ({ columns }: TableHeaderProps) => {
                     <th
                         key={col.field}
                         scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-200 !w-1/5 "
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-600 hover:text-gray-800 uppercase tracking-wider cursor-pointer hover:bg-gray-200 !w-1/5 "
                         onClick={() => {
                             setSortObj((prev) => ({
                                 field: col.field,
