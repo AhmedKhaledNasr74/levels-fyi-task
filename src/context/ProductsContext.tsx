@@ -5,6 +5,11 @@ import type PaginationType from "../interfaces/Pagination";
 import useProductsData from "../hooks/useProductsData";
 import { fetchProducts } from "../api/products";
 
+export type SortColumn = {
+    field: string;
+    direction: "asc" | "desc";
+};
+
 type ProductsContextType = {
     products: Product[];
     loading: boolean;
@@ -14,10 +19,8 @@ type ProductsContextType = {
     searchTerm: string;
     setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
     paginatedData: Product[];
-    sortObj: { field: string; direction: string };
-    setSortObj: React.Dispatch<
-        React.SetStateAction<{ field: string; direction: string }>
-    >;
+    sortColumns: SortColumn[];
+    setSortColumns: React.Dispatch<React.SetStateAction<SortColumn[]>>;
     pagination: PaginationType;
     setPagination: React.Dispatch<React.SetStateAction<PaginationType>>;
     filteredAndSorted: Product[];

@@ -2,34 +2,26 @@ import { useEffect, useState } from "react";
 
 const useCtrlClick = () => {
     const [isCtrl, setIsCtrl] = useState(false);
-    const [isClick, setIsClick] = useState(false);
-
-    const handleCtrl = (e: React.KeyboardEvent) => {
-        if (e.key === "Control" && e.type === "keydown") {
-            setIsCtrl(true);
-        }
-    };
-
-    const handleClick = () => {
-        if (isCtrl) setIsClick(true);
-        else setIsClick(!isClick);
-    };
 
     useEffect(() => {
-        const upTimer = window.addEventListener("keyup", (e) => {
-            if (e.key === "Control") setIsCtrl(false);
-        });
-        const downTimer = window.addEventListener("keydown", (e) => {
+        const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === "Control") setIsCtrl(true);
-        });
+        };
+
+        const handleKeyUp = (e: KeyboardEvent) => {
+            if (e.key === "Control") setIsCtrl(false);
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        window.addEventListener("keyup", handleKeyUp);
 
         return () => {
-            window.removeEventListener("keyup", () => upTimer);
-            window.removeEventListener("keydown", () => downTimer);
+            window.removeEventListener("keydown", handleKeyDown);
+            window.removeEventListener("keyup", handleKeyUp);
         };
     }, []);
 
-    return { handleCtrl, handleClick };
+    return { isCtrl };
 };
 
 export default useCtrlClick;

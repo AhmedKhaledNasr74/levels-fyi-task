@@ -20,7 +20,7 @@ const Table = () => {
     return (
         <div className="p-4 bg-white mt-5  rounded-2xl border border-gray-300 flex flex-col gap-4">
             <div className="flex justify-between items-center px-1">
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 flex-wrap">
                     <h2 className="font-medium">Products</h2>
                     {filter && (
                         <div className="text-sm bg-green-100/80 border border-green-300/80 px-2 py-1 rounded-full flex items-center  gap-2">
@@ -40,7 +40,7 @@ const Table = () => {
                         <FilterDropdown />
                         <button
                             aria-label="Clear Filters"
-                            className="group  p-2 rounded-md border  hover:bg-gray-100 cursor-pointer text-center text-sm border-gray-200 transition-all shadow-xs hover:shadow-lg focus:shadow-noneactive:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
+                            className="group  p-2 rounded-md border  hover:bg-gray-100 cursor-pointer text-center text-sm border-gray-200 transition-all shadow-xs hover:shadow-lg focus:shadow-none active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
                             onClick={clearSelections}
                         >
                             <RefreshCcw

@@ -2,11 +2,12 @@
 import { useEffect, useMemo, useState } from "react";
 import type { Product } from "../interfaces/Product";
 import type PaginationType from "../interfaces/Pagination";
+import type { SortColumn } from "../context/ProductsContext";
 
 const searchableFields: (keyof Product)[] = ["title", "category"];
 
 export default function useProductsData(products: Product[]) {
-    const [sortObj, setSortObj] = useState({ field: "", direction: "" });
+    const [sortColumns, setSortColumns] = useState<SortColumn[]>([]);
     const [filter, setFilter] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
     const [pagination, setPagination] = useState<PaginationType>({
@@ -16,19 +17,31 @@ export default function useProductsData(products: Product[]) {
 
     useEffect(() => {
         setPagination({ page: 1, take: 6 });
-    }, [filter, searchTerm, sortObj]);
+    }, [filter, searchTerm, sortColumns]);
 
     const sortData = (data: Product[]) => {
-        if (!sortObj.direction) return data;
+        if (sortColumns.length === 0) return data;
+
         return [...data].sort((a, b) => {
-            const valA = a[sortObj.field as keyof Product];
-            const valB = b[sortObj.field as keyof Product];
-            if (typeof valA === "number" && typeof valB === "number") {
-                return sortObj.direction === "asc" ? valA - valB : valB - valA;
+            for (const sortColumn of sortColumns) {
+                const valA = a[sortColumn.field as keyof Product];
+                const valB = b[sortColumn.field as keyof Product];
+
+                let comparison = 0;
+
+                if (typeof valA === "number" && typeof valB === "number") {
+                    comparison = valA - valB;
+                } else {
+                    comparison = String(valA).localeCompare(String(valB));
+                }
+
+                if (comparison !== 0) {
+                    return sortColumn.direction === "asc"
+                        ? comparison
+                        : -comparison;
+                }
             }
-            return sortObj.direction === "asc"
-                ? String(valA).localeCompare(String(valB))
-                : String(valB).localeCompare(String(valA));
+            return 0;
         });
     };
 
@@ -44,7 +57,7 @@ export default function useProductsData(products: Product[]) {
                 );
             })
         );
-    }, [products, sortObj, filter, searchTerm]);
+    }, [products, sortColumns, filter, searchTerm]);
 
     const paginatedData = useMemo(() => {
         return filteredAndSorted.slice(
@@ -55,14 +68,14 @@ export default function useProductsData(products: Product[]) {
 
     const clearSelections = () => {
         setFilter("");
-        setSortObj({ field: "title", direction: "" });
+        setSortColumns([]);
         setPagination({ page: 1, take: 6 });
         setSearchTerm("");
     };
 
     return {
-        sortObj,
-        setSortObj,
+        sortColumns,
+        setSortColumns,
         filter,
         setFilter,
         searchTerm,
