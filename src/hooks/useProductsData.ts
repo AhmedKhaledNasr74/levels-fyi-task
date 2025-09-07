@@ -6,7 +6,7 @@ import type PaginationType from "../interfaces/Pagination";
 const searchableFields: (keyof Product)[] = ["title", "category"];
 
 export default function useProductsData(products: Product[]) {
-    const [sortObj, setSortObj] = useState({ field: "title", direction: "" });
+    const [sortObj, setSortObj] = useState({ field: "", direction: "" });
     const [filter, setFilter] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
     const [pagination, setPagination] = useState<PaginationType>({

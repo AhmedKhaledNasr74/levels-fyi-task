@@ -38,7 +38,8 @@ const Table = () => {
                     <div className="flex items-center gap-1">
                         <TableSearch setSearchTerm={setSearchTerm} />
                         <FilterDropdown />
-                        <div
+                        <button
+                            aria-label="Clear Filters"
                             className="group  p-2 rounded-md border  hover:bg-gray-100 cursor-pointer text-center text-sm border-gray-200 transition-all shadow-xs hover:shadow-lg focus:shadow-noneactive:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
                             onClick={clearSelections}
                         >
@@ -46,7 +47,7 @@ const Table = () => {
                                 size={18}
                                 className="group-active:rotate-90 transition-all"
                             />
-                        </div>
+                        </button>
                     </div>
                 </div>
             </div>

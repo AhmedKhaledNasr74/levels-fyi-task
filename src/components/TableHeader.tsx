@@ -14,17 +14,24 @@ const TableHeader = ({ columns }: TableHeaderProps) => {
                     <th
                         key={col.field}
                         scope="col"
-                        className="px-6 py-3 text-left text-xs font-medium text-gray-600 hover:text-gray-800 uppercase tracking-wider cursor-pointer hover:bg-gray-200 !w-1/5 "
+                        className={`px-6 py-3 text-left text-xs font-medium text-gray-600 hover:text-gray-800 uppercase tracking-wider cursor-pointer hover:bg-gray-200 !w-1/5  ${
+                            col.label.toLowerCase() == sortObj.field &&
+                            "bg-gray-200 text-gray-800"
+                        }`}
                         onClick={() => {
                             setSortObj((prev) => ({
                                 field: col.field,
                                 direction:
-                                    prev.direction == "asc" ? "desc" : "asc",
+                                    prev.field !== col.field
+                                        ? "asc"
+                                        : prev.direction == "asc"
+                                        ? "desc"
+                                        : "asc",
                             }));
                             handleClick();
                         }}
                     >
-                        <div className="flex items-center gap-2">
+                        <div className={`flex items-center gap-2`}>
                             <h3>{col.label}</h3>
                             {sortObj.field === col.field ? (
                                 sortObj.direction == "" ? (
