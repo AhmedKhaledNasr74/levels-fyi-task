@@ -16,7 +16,7 @@ export default function useProductsData(products: Product[]) {
 
     useEffect(() => {
         setPagination({ page: 1, take: 6 });
-    }, [filter, searchTerm]);
+    }, [filter, searchTerm, sortObj]);
 
     const sortData = (data: Product[]) => {
         if (!sortObj.direction) return data;
