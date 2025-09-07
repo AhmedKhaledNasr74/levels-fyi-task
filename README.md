@@ -109,3 +109,22 @@ npm install
 -   **Lucide React** for icons
 -   **Custom components:** `Table`, `Pagination`, `FilterDropdown`, `StatisticsCard`
 -   **TypeScript** for type safety
+
+---
+
+## 📖 Docs / Future Work
+
+There are a few simple features I wanted to add but couldn’t due to time constraints:
+
+-   **Row Selection (Checkboxes)**  
+    Add checkboxes to select individual rows, plus a “select all” option in the header.
+
+-   **Clear Sorting Button**  
+    A single button to remove all sorting without affecting filters, search, or pagination.
+
+-   **Dark Mode**  
+    Add light/dark theme support using Tailwind’s `dark:` classes.
+
+---
+
+> 🕒 These would have been quick wins for usability and polish, but I focused on core table logic first.
