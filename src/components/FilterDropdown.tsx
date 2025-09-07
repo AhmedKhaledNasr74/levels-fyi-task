@@ -3,14 +3,12 @@ import { useEffect, useRef, useState } from "react";
 import type { Product } from "../interfaces/Product";
 import { useProducts } from "../context/ProductsContext";
 
-type FilterDropdownProps = {
-    data: Product[];
-};
-
-const FilterDropdown = ({ data }: FilterDropdownProps) => {
-    const { filter, setFilter } = useProducts();
+const FilterDropdown = () => {
+    const { filter, setFilter, products } = useProducts();
     const [openFilter, setOpenFilter] = useState(false);
-    const categories = [...new Set(data.map((item: Product) => item.category))];
+    const categories = [
+        ...new Set(products.map((item: Product) => item.category)),
+    ];
 
     const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -35,6 +33,7 @@ const FilterDropdown = ({ data }: FilterDropdownProps) => {
             <button
                 className="rounded-md border flex items-center gap-3 py-2 px-4  hover:bg-gray-100 cursor-pointer text-center text-sm border-gray-200 transition-all shadow-xs hover:shadow-lg focus:shadow-noneactive:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
                 type="button"
+                aria-label="Filter"
                 onClick={() => setOpenFilter(!openFilter)}
             >
                 <Filter size={16} />

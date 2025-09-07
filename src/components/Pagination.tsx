@@ -17,6 +17,7 @@ const Pagination = () => {
         <div className="flex items-center gap-8 scale-90 justify-center">
             <button
                 disabled={pagination.page === 1}
+                aria-label="Previous Page"
                 onClick={() =>
                     setPagination({
                         ...pagination,
@@ -38,6 +39,7 @@ const Pagination = () => {
 
             <button
                 disabled={pagination.page === finalPage}
+                aria-label="Next Page"
                 onClick={() =>
                     setPagination({
                         ...pagination,

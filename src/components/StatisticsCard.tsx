@@ -31,7 +31,18 @@ const StatisticsCard = () => {
             icon: <Wallet size={20} />,
         },
     ];
-
+    if (products.length === 0) {
+        return (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 animate-pulse">
+                {Array.from({ length: 4 }).map((_, idx) => (
+                    <div
+                        key={idx}
+                        className="shadow-md w-full h-40 rounded-xl bg-gray-200"
+                    ></div>
+                ))}
+            </div>
+        );
+    }
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Main card */}

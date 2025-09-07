@@ -15,14 +15,8 @@ const COLUMNS = [
 ];
 
 const Table = () => {
-    const {
-        products,
-        filter,
-        setFilter,
-        setSearchTerm,
-        paginatedData,
-        clearSelections,
-    } = useProducts();
+    const { filter, setFilter, setSearchTerm, paginatedData, clearSelections } =
+        useProducts();
     return (
         <div className="p-4 bg-white mt-5  rounded-2xl border border-gray-300 flex flex-col gap-4">
             <div className="flex justify-between items-center px-1">
@@ -43,7 +37,7 @@ const Table = () => {
                 <div className="">
                     <div className="flex items-center gap-1">
                         <TableSearch setSearchTerm={setSearchTerm} />
-                        <FilterDropdown data={products} />
+                        <FilterDropdown />
                         <div
                             className="group  p-2 rounded-md border  hover:bg-gray-100 cursor-pointer text-center text-sm border-gray-200 transition-all shadow-xs hover:shadow-lg focus:shadow-noneactive:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
                             onClick={clearSelections}
